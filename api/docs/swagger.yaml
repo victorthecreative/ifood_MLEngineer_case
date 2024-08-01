@@ -1,0 +1,48 @@
+basePath: /
+definitions:
+  handlers.PromptRequest:
+    properties:
+      max_length:
+        type: integer
+      prompt:
+        type: string
+    type: object
+  handlers.PromptResponse:
+    properties:
+      response:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server for processing prompts with a Python script.
+  title: Prompt API
+  version: "1.0"
+paths:
+  /api/v1/prompt:
+    post:
+      consumes:
+      - application/json
+      description: Process a given prompt using a Python script
+      parameters:
+      - description: Prompt
+        in: body
+        name: prompt
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.PromptRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.PromptResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Process a prompt
+swagger: "2.0"
